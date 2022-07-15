@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import "./App.css";
 import logo from "./logo.svg";
 import { Navbar, NavbarBrand } from "reactstrap";
-import Menu from "./components/MenuComponent";
-import { DISHES } from "./components/shared/dishes";
+import StaffList from "./components/StaffListComponent";
+import { STAFFS } from "./components/shared/staffs";
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dishes: DISHES,
+      staffs: STAFFS,
     };
   }
   render() {
@@ -16,10 +17,10 @@ class App extends Component {
       <div className="App">
         <Navbar dark color="primary">
           <div className="container">
-            <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
+            <NavbarBrand href="/">Ứng dụng quản lí nhân sự V1.0</NavbarBrand>
           </div>
         </Navbar>
-        <Menu dishes={this.state.dishes} />
+        <StaffList staffs={this.state.staffs} />
       </div>
     );
   }

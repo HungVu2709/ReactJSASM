@@ -43,6 +43,7 @@ export default class Menu extends React.Component {
               <CardTitle>{dish.name}</CardTitle>
             </CardImgOverlay>
           </Card>
+          <CardText>{dish.description}</CardText>
         </div>
       );
     });
