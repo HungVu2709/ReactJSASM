@@ -19,45 +19,21 @@ import {
 import { Link } from "react-router-dom";
 import { Control, LocalForm } from "react-redux-form";
 
-// function RenderDish({ dish, favorite, postFavorite }) {
-//   return (
-//     <div className="col-12 col-md-5 m-1">
-//       <FadeTransform
-//         in
-//         transformProps={{
-//           exitTransform: "scale(0.5) translateY(-50%)",
-//         }}
-//       >
-//         <Card>
-//           <CardImg top src={baseUrl + dish.image} alt={dish.name} />
-//           <CardImgOverlay>
-//             <Button
-//               outline
-//               color="primary"
-//               onClick={() =>
-//                 favorite
-//                   ? console.log("Already favorite")
-//                   : postFavorite(dish._id)
-//               }
-//             >
-//               {favorite ? (
-//                 <span className="fa fa-heart"></span>
-//               ) : (
-//                 <span className="fa fa-heart-o"></span>
-//               )}
-//             </Button>
-//           </CardImgOverlay>
-//           <CardBody>
-//             <CardTitle>{dish.name}</CardTitle>
-//             <CardText>{dish.description}</CardText>
-//           </CardBody>
-//         </Card>
-//       </FadeTransform>
-//     </div>
-//   );
-// }
+function RenderDish({ dish }) {
+  return (
+    <div className="col-12 col-md-5 m-1">
+      <Card>
+        <CardImg top src={dish.image} alt={dish.name} />
+        <CardBody>
+          <CardTitle>{dish.name}</CardTitle>
+          <CardText>{dish.description}</CardText>
+        </CardBody>
+      </Card>
+    </div>
+  );
+}
 
-function RenderComments({ comments, postComment, dishId }) {
+function RenderComments({ comments }) {
   if (comments != null)
     return (
       <div className="col-12 col-md-5 m-1">
@@ -80,7 +56,6 @@ function RenderComments({ comments, postComment, dishId }) {
             );
           })}
         </ul>
-        <CommentForm dishId={dishId} postComment={postComment} />
       </div>
     );
   else return <div></div>;
@@ -189,16 +164,8 @@ const DishDetail = (props) => {
           </div>
         </div>
         <div className="row">
-          {/* <RenderDish
-            dish={props.dish}
-            favorite={props.favorite}
-            postFavorite={props.postFavorite}
-          /> */}
-          <RenderComments
-            comments={props.comments}
-            postComment={props.postComment}
-            dishId={props.dish._id}
-          />
+          <RenderDish dish={props.dish} />
+          <RenderComments comments={props.comments} />
         </div>
       </div>
     );
