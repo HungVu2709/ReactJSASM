@@ -1,13 +1,5 @@
 import React, { Component } from "react";
 import {
-  Card,
-  CardImg,
-  CardImgOverlay,
-  CardText,
-  CardBody,
-  CardTitle,
-  Breadcrumb,
-  BreadcrumbItem,
   Label,
   Modal,
   ModalHeader,
@@ -15,6 +7,15 @@ import {
   Button,
   Row,
   Col,
+} from "reactstrap";
+import {
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardTitle,
+  Breadcrumb,
+  BreadcrumbItem,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Control, LocalForm } from "react-redux-form";
@@ -164,8 +165,12 @@ const DishDetail = (props) => {
           </div>
         </div>
         <div className="row">
-          <RenderDish dish={props.dish} />
-          <RenderComments comments={props.comments} />
+          <div className="col-12 col-md-5 m-1">
+            <RenderDish dish={props.dish} />
+          </div>
+          <div className="col-12 col-md-5 m-1">
+            <RenderComments comments={props.comments} />
+          </div>
         </div>
       </div>
     );
