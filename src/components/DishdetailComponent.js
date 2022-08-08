@@ -34,7 +34,7 @@ function RenderDish({ dish }) {
   );
 }
 
-function RenderComments({ comments }) {
+function RenderComments({ comments, postComment, dishId }) {
   if (comments != null)
     return (
       <div className="col-12 col-md-5 m-1">
@@ -46,17 +46,19 @@ function RenderComments({ comments }) {
                 <p>{comment.comment}</p>
                 <p>{comment.rating} stars</p>
                 <p>
-                  -- {comment.author.firstname} {comment.author.lastname} ,{" "}
-                  {new Intl.DateTimeFormat("en-US", {
+                  -- {comment.author.firstname} {comment.author.lastname} ,
+                  {comment.updatedAt}
+                  {/* {new Intl.DateTimeFormat("en-US", {
                     year: "numeric",
                     month: "short",
                     day: "2-digit",
-                  }).format(new Date(Date.parse(comment.updatedAt)))}
+                  }).format(new Date(Date.parse(comment.updatedAt)))} */}
                 </p>
               </li>
             );
           })}
         </ul>
+        <CommentForm dishId={dishId} postComment={postComment} />
       </div>
     );
   else return <div></div>;
