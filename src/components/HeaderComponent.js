@@ -63,11 +63,11 @@ export default class Header extends React.Component {
                     Us
                   </NavLink>
                 </NavItem> */}
-                <NavItem>
+                {/* <NavItem>
                   <NavLink className="nav-link" to="/menu">
                     <span className="fa fa-list fa-lg"></span> Menu
                   </NavLink>
-                </NavItem>
+                </NavItem> */}
                 <NavItem>
                   <NavLink className="nav-link" to="/staff">
                     <span className="fa fa-solid fa-users fa-lg"></span> Nhân
