@@ -47,11 +47,7 @@ function RenderComments({ comments }) {
                 <p>{comment.rating} stars</p>
                 <p>
                   -- {comment.author.firstname} {comment.author.lastname} ,{" "}
-                  {new Intl.DateTimeFormat("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "2-digit",
-                  }).format(new Date(Date.parse(comment.updatedAt)))}
+                  {comment.updatedAt}
                 </p>
               </li>
             );
