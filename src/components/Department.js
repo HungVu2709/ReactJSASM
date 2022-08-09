@@ -7,7 +7,7 @@ function RenderDepartment({ department, onClick }) {
   return (
     <Card>
       <CardTitle>{department.name}</CardTitle>
-      Số lượng nhân viên :{department.numberOfStaff}
+      <p>Số lượng nhân viên :{department.numberOfStaff}</p>
     </Card>
   );
 }

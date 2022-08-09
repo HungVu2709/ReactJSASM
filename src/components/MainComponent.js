@@ -97,7 +97,10 @@ class Main extends Component {
               <Department departments={this.state.departments} />
             )}
           />
-          <Route path="/salary" component={Salary} />
+          <Route
+            path="/salary"
+            component={() => <Salary staffs={this.state.staffs} />}
+          />
           <Redirect to="/home" />
         </Switch>
         <Footer />
