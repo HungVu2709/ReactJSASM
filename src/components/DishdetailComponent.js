@@ -7,6 +7,7 @@ import {
   Button,
   Row,
   Col,
+  Input,
 } from "reactstrap";
 import {
   Card,
@@ -22,7 +23,7 @@ import { Control, LocalForm } from "react-redux-form";
 
 function RenderDish({ dish }) {
   return (
-    <div className="col-12 col-md-5 m-1">
+    <div className="col-12 col-md-12 m-2">
       <Card>
         <CardImg top src={dish.image} alt={dish.name} />
         <CardBody>
@@ -37,22 +38,21 @@ function RenderDish({ dish }) {
 function RenderComments({ comments, postComment, dishId }) {
   if (comments != null)
     return (
-      <div className="col-12 col-md-5 m-1">
+      <div className="col-12 col-md-12 m-1">
         <h4>Comments</h4>
         <ul className="list-unstyled">
           {comments.map((comment) => {
             return (
               <li>
                 <p>{comment.comment}</p>
-                <p>{comment.rating} stars</p>
+                {/* <p>{comment.rating} stars</p> */}
                 <p>
-                  -- {comment.author.firstname} {comment.author.lastname} ,
-                  {comment.updatedAt}
-                  {/* {new Intl.DateTimeFormat("en-US", {
+                  -- {comment.author} ,
+                  {new Intl.DateTimeFormat("en-US", {
                     year: "numeric",
                     month: "short",
                     day: "2-digit",
-                  }).format(new Date(Date.parse(comment.updatedAt)))} */}
+                  }).format(new Date(Date.parse(comment.date)))}
                 </p>
               </li>
             );
@@ -85,7 +85,13 @@ class CommentForm extends Component {
 
   handleSubmit(values) {
     this.toggleModal();
-    this.props.postComment(this.props.dishId, values.rating, values.comment);
+    // this.props.postComment(
+    //   this.props.dishId,
+    //   values.rating,
+    //   values.name,
+    //   values.comment
+    // );
+    // console.log(this.props.dishId, values.rating);
   }
 
   render() {
@@ -112,6 +118,9 @@ class CommentForm extends Component {
                     <option>4</option>
                     <option>5</option>
                   </Control.select>
+
+                  <Label htmlFor="name">Your Name</Label>
+                  <Input id="name" placeholder="Your Name" type="text" />
                 </Col>
               </Row>
               <Row className="form-group">
