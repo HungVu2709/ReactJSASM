@@ -39,6 +39,11 @@ class Main extends Component {
           promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
           leader={this.props.leaders.filter((leader) => leader.featured)[0]}
           staff={this.props.staffs.filter((staff) => staff.featured)[0]}
+          department={
+            this.props.departments.filter(
+              (department) => department.featured
+            )[0]
+          }
         />
       );
     };

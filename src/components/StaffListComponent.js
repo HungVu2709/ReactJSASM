@@ -11,7 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Label, Col, Row } from "reactstrap";
-import { Control, Form, Errors, LocalForm } from "react-redux-form";
+import { Control, Errors, LocalForm } from "react-redux-form";
 function RenderStaffItem({ staff }) {
   return (
     <Card>
