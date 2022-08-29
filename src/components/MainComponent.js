@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 import { Navbar, NavbarBrand } from "reactstrap";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import Menu from "./MenuComponent";
 import DishDetail from "./DishdetailComponent";
-import { DISHES } from "../shared/dishes";
-import { COMMENTS } from "../shared/comments";
-import { PROMOTIONS } from "../shared/promotions";
-import { LEADERS } from "../shared/leaders";
-import { DEPARTMENTS, STAFFS } from "../shared/staff";
+
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
 import Home from "./HomeComponent";
@@ -16,18 +12,21 @@ import StaffList from "./StaffListComponent";
 import StaffDetail from "./StaffDetailComponent";
 import Department from "./Department";
 import Salary from "./Salary";
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => {
+  return {
+    dishes: state.dishes,
+    comments: state.comments,
+    promotions: state.promotions,
+    leaders: state.leaders,
+    staffs: state.staffs,
+    departments: state.departments,
+  };
+};
 class Main extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      dishes: DISHES,
-      comments: COMMENTS,
-      promotions: PROMOTIONS,
-      leaders: LEADERS,
-      selectedDish: null,
-      staffs: STAFFS,
-      departments: DEPARTMENTS,
-    };
   }
   onDishSelect(dishId) {
     this.setState({ selectedDish: dishId });
@@ -36,9 +35,10 @@ class Main extends Component {
     const HomePage = () => {
       return (
         <Home
-          dish={this.state.dishes.filter((dish) => dish.featured)[0]}
-          promotion={this.state.promotions.filter((promo) => promo.featured)[0]}
-          leader={this.state.leaders.filter((leader) => leader.featured)[0]}
+          dish={this.props.dishes.filter((dish) => dish.featured)[0]}
+          promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
+          leader={this.props.leaders.filter((leader) => leader.featured)[0]}
+          staff={this.props.staffs.filter((staff) => staff.featured)[0]}
         />
       );
     };
@@ -47,11 +47,11 @@ class Main extends Component {
       return (
         <DishDetail
           dish={
-            this.state.dishes.filter(
+            this.props.dishes.filter(
               (dish) => dish.id === parseInt(match.params.dishId, 10)
             )[0]
           }
-          comments={this.state.comments.filter(
+          comments={this.props.comments.filter(
             (comment) => comment.dishId === parseInt(match.params.dishId, 10)
           )}
         />
@@ -62,7 +62,7 @@ class Main extends Component {
       return (
         <StaffDetail
           staff={
-            this.state.staffs.filter(
+            this.props.staffs.filter(
               (staff) => staff.id === parseInt(match.params.staffId, 10)
             )[0]
           }
@@ -82,7 +82,7 @@ class Main extends Component {
           <Route
             exact
             path="/staff"
-            component={() => <StaffList staffs={this.state.staffs} />}
+            component={() => <StaffList staffs={this.props.staffs} />}
           />
           <Route path="/menu/:dishId" component={DishWithId} />
           <Route
@@ -94,12 +94,12 @@ class Main extends Component {
           <Route
             path="/department"
             component={() => (
-              <Department departments={this.state.departments} />
+              <Department departments={this.props.departments} />
             )}
           />
           <Route
             path="/salary"
-            component={() => <Salary staffs={this.state.staffs} />}
+            component={() => <Salary staffs={this.props.staffs} />}
           />
           <Redirect to="/home" />
         </Switch>
@@ -109,4 +109,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default withRouter(connect(mapStateToProps)(Main));
