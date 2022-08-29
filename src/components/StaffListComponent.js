@@ -1,5 +1,5 @@
-import React from "react";
-import { Button, Col, Row } from "reactstrap";
+import React, { useState } from "react";
+import { Col, Row } from "reactstrap";
 import dateFormat from "dateformat";
 import {
   Card,
@@ -11,8 +11,8 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
-
-function RenderStaffItem({ staff, onClick }) {
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+function RenderStaffItem({ staff }) {
   return (
     <Card>
       <Link to={`/staff/${staff.id}`}>
@@ -24,32 +24,61 @@ function RenderStaffItem({ staff, onClick }) {
 }
 
 const StaffList = (props) => {
-  const staff = props.staffs.map((staff) => {
-    return (
-      <div className="col-6 col-md-4 col-lg-2 mt-3" key={staff.id}>
-        <RenderStaffItem staff={staff} onClick={props.onClick} />
-      </div>
-    );
-  });
+  const [searchName, setSearchName] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+  function handleSearchName() {
+    console.log(searchName);
+    setSearchQuery(searchName);
+  }
+  const staff = props.staffs
+    .filter((staff) => staff.name.toLowerCase().includes(searchQuery))
+    .map((staff) => {
+      return (
+        <div className="col-6 col-md-4 col-lg-2 mt-3" key={staff.id}>
+          <RenderStaffItem staff={staff} onClick={props.onClick} />
+        </div>
+      );
+    });
 
   return (
     <div className="container">
       <div className="row">
-        <Row className="col-12 mt-3">
+        <Row className="col-12 col-md-4 col-lg-12 mt-3">
           <Col>
             <h3>Nhân viên</h3>
           </Col>
           <Col>
-            <Button color="primary"> ADD STAFF</Button>
+            <Input
+              type="search"
+              placeholder="Search"
+              className="col-12"
+              onChange={(e) => setSearchName(e.target.value)}
+            />
           </Col>
           <Col>
-            <Input type="search" className="col-12" />
+            <Button color="primary" onClick={handleSearchName}>
+              Search
+            </Button>
           </Col>
           <Col>
-            <Button color="primary"> Search</Button>
+            <Button color="primary" onClick={toggle}>
+              {" "}
+              ADD STAFF
+            </Button>
           </Col>
         </Row>
       </div>
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle}>ADD STAFF</ModalHeader>
+        <ModalBody>Lorem ipsum dolor sit amet</ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={toggle}>
+            ADD
+          </Button>{" "}
+        </ModalFooter>
+      </Modal>
       <hr />
       <div className="row">{staff}</div>
     </div>
