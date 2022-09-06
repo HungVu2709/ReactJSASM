@@ -10,7 +10,6 @@ import {
   BreadcrumbItem,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import { Control, LocalForm } from "react-redux-form";
 
 function RenderStaff({ staff }) {
   return (

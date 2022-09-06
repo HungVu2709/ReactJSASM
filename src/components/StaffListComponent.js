@@ -1,15 +1,7 @@
 import React, { useState } from "react";
-import dateFormat from "dateformat";
-import {
-  Card,
-  CardText,
-  CardImgOverlay,
-  CardTitle,
-  CardImg,
-  Input,
-} from "reactstrap";
+import { Card, CardImg, Input } from "reactstrap";
 import { Link } from "react-router-dom";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import { Label, Col, Row } from "reactstrap";
 import { Control, Errors, LocalForm } from "react-redux-form";
 function RenderStaffItem({ staff }) {
@@ -38,9 +30,27 @@ const StaffList = (props) => {
     setSearchQuery(searchName);
   }
 
+  const getAllStaff = props.staffs;
+
   function handleSubmit(values) {
-    console.log(values, "smth");
+    console.log("values", values);
+    const newStaff = {
+      id: Number(getAllStaff.length + 1),
+      name: values.name,
+      doB: values.doB,
+      salaryScale: values.salaryScale,
+      startDate: values.startDate,
+      department: { name: values.department },
+      annualLeave: values.annualLeave,
+      overTime: values.overTime,
+      salary: values.salary,
+      image: "/assets/images/alberto.png",
+    };
+
+    console.log(getAllStaff.push(newStaff));
+    // props.staff.push(newStaff);
   }
+
   const staff = props.staffs
     .filter((staff) => staff.name.toLowerCase().includes(searchQuery))
     .map((staff) => {
@@ -84,14 +94,14 @@ const StaffList = (props) => {
         <ModalBody>
           <LocalForm onSubmit={(values) => handleSubmit(values)}>
             <Row className="form-group">
-              <Label htmlFor="firstname" md={4}>
+              <Label htmlFor="name" md={4}>
                 Tên
               </Label>
               <Col md={8}>
                 <Control.text
-                  model=".firstname"
-                  id="firstname"
-                  name="firstname"
+                  model=".name"
+                  id="name"
+                  name="name"
                   placeholder="Tên"
                   className="form-control"
                   validators={{
@@ -102,7 +112,7 @@ const StaffList = (props) => {
                 />
                 <Errors
                   className="text-danger"
-                  model=".firstname"
+                  model=".name"
                   show="touched"
                   messages={{
                     required: "Yêu cầu nhập",
@@ -113,15 +123,15 @@ const StaffList = (props) => {
               </Col>
             </Row>
             <Row className="form-group">
-              <Label htmlFor="dob" md={4}>
+              <Label htmlFor="doB" md={4}>
                 Ngày sinh
               </Label>
               <Col md={8}>
                 <Control.text
                   type="Date"
-                  model=".dob"
-                  id="dob"
-                  name="dob"
+                  model=".doB"
+                  id="doB"
+                  name="doB"
                   className="form-control"
                   validators={{
                     required,
@@ -129,7 +139,7 @@ const StaffList = (props) => {
                 />
                 <Errors
                   className="text-danger"
-                  model=".dob"
+                  model=".doB"
                   show="touched"
                   messages={{
                     required: "Yêu cầu nhập",
