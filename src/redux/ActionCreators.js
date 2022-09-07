@@ -165,6 +165,7 @@ export const addPromos = (promos) => ({
   payload: promos,
 });
 
+// fetch leaders
 export const fetchLeaders = () => (dispatch) => {
   dispatch(leadersLoading());
 
