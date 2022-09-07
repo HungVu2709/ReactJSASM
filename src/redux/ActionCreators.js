@@ -90,6 +90,7 @@ export const addDishes = (dishes) => ({
   payload: dishes,
 });
 
+// fetch comments
 export const fetchComments = () => (dispatch) => {
   return fetch(baseUrl + "comments")
     .then(
