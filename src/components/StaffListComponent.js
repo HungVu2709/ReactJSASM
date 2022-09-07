@@ -53,7 +53,9 @@ const StaffList = (props) => {
   }
 
   const staff = props.staffs
-    .filter((staff) => staff.name.toLowerCase().includes(searchQuery))
+    .filter((staff) =>
+      staff.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
     .map((staff) => {
       return (
         <div className="col-6 col-md-4 col-lg-2 mt-3" key={staff.id}>
