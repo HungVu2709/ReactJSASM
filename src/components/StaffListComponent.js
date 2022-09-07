@@ -49,6 +49,7 @@ const StaffList = (props) => {
 
     console.log(getAllStaff.push(newStaff));
     // props.staff.push(newStaff);
+    setModal(!modal);
   }
 
   const staff = props.staffs
