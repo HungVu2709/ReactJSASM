@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { Loading } from "./LoadingComponent";
 import { FadeTransform, Fade, Stagger } from "react-animation-components";
 
-function RenderStaff({ staff }) {
+function RenderDepartment({ staff }) {
   return (
     <div>
       <FadeTransform
@@ -30,7 +30,7 @@ function RenderStaff({ staff }) {
   );
 }
 
-function RenderStaffInfo({ staff }) {
+function RenderDepartmentInfo({ staff }) {
   return (
     <div>
       <Card>
@@ -48,8 +48,14 @@ function RenderStaffInfo({ staff }) {
     </div>
   );
 }
-
-const StaffDetail = (props) => {
+const DepartmentDetail = (props) => {
+  const staffDepartment = props.staff.map((staff) => {
+    return (
+      <div className="col-6 col-md-4 col-lg-2 mt-3" key={staff.id}>
+        <RenderDepartmentInfo staff={props.staff} />
+      </div>
+    );
+  });
   if (props.isLoading) {
     return (
       <div className="container">
@@ -66,31 +72,33 @@ const StaffDetail = (props) => {
         </div>
       </div>
     );
-  } else if (props.staff != null)
+  } else if (props.department != null)
     return (
       <div className="container">
         <div className="row">
           <Breadcrumb>
             <BreadcrumbItem>
-              <Link to="/staff">Nhân viên</Link>
+              <Link to="/department">Phòng Ban</Link>
             </BreadcrumbItem>
-            <BreadcrumbItem active>{props.staff.name}</BreadcrumbItem>
+            <BreadcrumbItem active>{props.department.name}</BreadcrumbItem>
           </Breadcrumb>
           <div className="col-12">
-            <h3>{props.staff.name}</h3>
+            <h3>{props.department.name}</h3>
+            <h3>{console.log(props.staff)}</h3>
             <hr />
           </div>
         </div>
         <div className="row">
           <div className="col-12 col-md-4 col-lg-3">
-            <RenderStaff staff={props.staff} />
+            <RenderDepartment staff={props.staff} />
           </div>
-          <div className="col-12 col-md-8 col-lg-9">
-            <RenderStaffInfo staff={props.staff} />
-          </div>
+          {/* <div className="col-12 col-md-8 col-lg-9">
+            <RenderDepartmentInfo staff={props.staff} />
+          </div> */}
+          <div className="col-12 col-md-8 col-lg-9">{staffDepartment}</div>
         </div>
       </div>
     );
 };
 
-export default StaffDetail;
+export default DepartmentDetail;
