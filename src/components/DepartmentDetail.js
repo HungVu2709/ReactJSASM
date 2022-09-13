@@ -9,7 +9,7 @@ import {
   Breadcrumb,
   BreadcrumbItem,
 } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, matchPath } from "react-router-dom";
 import { Loading } from "./LoadingComponent";
 import { FadeTransform, Fade, Stagger } from "react-animation-components";
 
@@ -49,13 +49,20 @@ function RenderDepartmentInfo({ staff }) {
   );
 }
 const DepartmentDetail = (props) => {
-  const staffDepartment = props.staff.map((staff) => {
-    return (
-      <div className="col-6 col-md-4 col-lg-2 mt-3" key={staff.id}>
-        <RenderDepartmentInfo staff={props.staff} />
-      </div>
-    );
-  });
+  const staffDepartment = props.staff
+    .filter((staff) => staff.departmentId === props.department.id)
+    .map((staff) => {
+      return (
+        <div className="row" key={staff.id}>
+          <div className="col-12 col-md-4 col-lg-3">
+            <RenderDepartment staff={props.staff} />
+          </div>
+          <div className="col-12 col-md-8 col-lg-9">
+            <RenderDepartmentInfo staff={staff} />
+          </div>
+        </div>
+      );
+    });
   if (props.isLoading) {
     return (
       <div className="container">
@@ -84,19 +91,11 @@ const DepartmentDetail = (props) => {
           </Breadcrumb>
           <div className="col-12">
             <h3>{props.department.name}</h3>
-            <h3>{console.log(props.staff)}</h3>
+            {console.log(props.staff)}
             <hr />
           </div>
         </div>
-        <div className="row">
-          <div className="col-12 col-md-4 col-lg-3">
-            <RenderDepartment staff={props.staff} />
-          </div>
-          {/* <div className="col-12 col-md-8 col-lg-9">
-            <RenderDepartmentInfo staff={props.staff} />
-          </div> */}
-          <div className="col-12 col-md-8 col-lg-9">{staffDepartment}</div>
-        </div>
+        {staffDepartment}
       </div>
     );
 };
